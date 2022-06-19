@@ -1,6 +1,6 @@
-## Getting Started
+## KOFK Archive File Manager
 
-Welcome to the VS Code Java world. Here is a guideline to help you get started to write Java code in Visual Studio Code.
+This is a GUI Program designed to make it easier to add and modify listings on KOFKArchive.
 
 ## Folder Structure
 
@@ -11,7 +11,12 @@ The workspace contains two folders by default, where:
 
 Meanwhile, the compiled output files will be generated in the `bin` folder by default.
 
-> If you want to customize the folder structure, open `.vscode/settings.json` and update the related settings there.
+## File Structure
+
+ - `Main.java`: Controls the entire program and is the central controller.
+ - `MainMenuPanel.java`: Panel which handles all of the MainMenu panel functionalities (directing to different panels)
+ - `InfoPanel.java`: Panel which handles all of the Info panel functionalities (creates new listing).
+ - `DatabaseHandler.java`: Reads, Writes and appends data with the files in the KOFKArchive directory
 
 ## Dependency Management
 
