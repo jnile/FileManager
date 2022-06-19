@@ -11,13 +11,13 @@ import javafx.scene.control.TextField;
 import javafx.scene.layout.ColumnConstraints;
 import javafx.scene.layout.GridPane;
 
-public class InfoPanel {
+public class NewLisitng {
 
     private GridPane infoPanel;
     private Main mainProfile;
 
     //Constructor
-    public InfoPanel(Main inpMainProfile) {
+    public NewLisitng(Main inpMainProfile) {
         mainProfile = inpMainProfile;
 
         infoPanel = new GridPane();

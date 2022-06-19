@@ -1,8 +1,5 @@
 package manager;
 
-import java.util.Calendar;
-import java.util.Date;
-
 import javafx.application.Application;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
@@ -13,7 +10,7 @@ public class Main extends Application{
     private final static int height = 500;
 
     private MainMenuPanel mainMenuPanel;
-    private InfoPanel infoPanel;
+    private NewLisitng infoPanel;
     private Stage stage;
 
 
@@ -28,7 +25,7 @@ public class Main extends Application{
         stage = inpstage;
         // Instantiate Important Panels
         mainMenuPanel = new MainMenuPanel(this);
-        infoPanel = new InfoPanel(this);
+        infoPanel = new NewLisitng(this);
 
         Scene scene = new Scene(mainMenuPanel.getPanel(),width,height);
 
