@@ -10,7 +10,7 @@ public class Main extends Application{
     private final static int height = 500;
 
     private MainMenuPanel mainMenuPanel;
-    private NewLisitng infoPanel;
+    private NewLisitng newListingPanel;
     private Stage stage;
 
 
@@ -25,7 +25,7 @@ public class Main extends Application{
         stage = inpstage;
         // Instantiate Important Panels
         mainMenuPanel = new MainMenuPanel(this);
-        infoPanel = new NewLisitng(this);
+        newListingPanel = new NewLisitng(this);
 
         Scene scene = new Scene(mainMenuPanel.getPanel(),width,height);
 
@@ -37,7 +37,7 @@ public class Main extends Application{
     }
 
     public void changeToInfoPanel() {
-        Scene scene = new Scene(infoPanel.getPanel(),width,height);
+        Scene scene = new Scene(newListingPanel.getPanel(),width,height);
         stage.setScene(scene);
     }
 
