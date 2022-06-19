@@ -1,6 +1,6 @@
 ## KOFK Archive File Manager
 
-This is a GUI Program designed to make it easier to add and modify listings on KOFKArchive.
+This is a GUI Program designed to make it easier to add and modify listings on KOFKArchive. This is still in creation so full functionality is not yet implemented.
 
 ## Folder Structure
 
