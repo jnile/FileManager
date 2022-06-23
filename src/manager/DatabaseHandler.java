@@ -3,7 +3,16 @@ package manager;
 import java.io.File;
 import java.io.FileReader;
 import java.io.FileWriter;
+import java.io.IOException;
 import java.io.PrintWriter;
+import java.lang.StackWalker.Option;
+import java.nio.file.CopyOption;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
+import java.nio.file.StandardCopyOption;
+import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.Iterator;
 
 import org.json.simple.JSONArray;
@@ -21,6 +30,8 @@ public abstract class DatabaseHandler {
     private static JSONObject currentInfoJSON = new JSONObject();
     private static int currentDocNo;
 
+
+    // Setter Functions
     public static void setContent() {
         
         // Fetch data from content.json
@@ -55,6 +66,8 @@ public abstract class DatabaseHandler {
         }
     }
 
+
+    // Getter Functions
     public static JSONObject getInfoOfDocNo(int inpDocNo) {
         if(inpDocNo == currentDocNo) {
             return currentInfoJSON;
@@ -64,6 +77,19 @@ public abstract class DatabaseHandler {
         }
     }
 
+    public static JSONArray getContentJSONStorage() {
+        try {
+            JSONArray temp = (JSONArray) contentJSON.get("storage");
+            return temp;
+        }
+        catch(Exception e) {
+            System.out.println(e);
+            return null;
+        }
+    }
+
+
+    // Public Functions
     public static void saveDataCurrentInfoJSONToFile() {
         // Write current Info Json to it's respect info.json file in the documents directory
         try {
@@ -91,8 +117,30 @@ public abstract class DatabaseHandler {
         }
     }
 
-    public static void createNewListing(String title, String dateStarted, String dateUpdated, JSONArray tags, String link, JSONArray img, String shortDesc, String longDesc) {
-        JSONObject newListingToAddToContent = new JSONObject();
+    public static void saveImgsToDirectory(ArrayList<String> imgsUrl) {
+        String dest = LOCATION_DOCUMENTS + "/" + Integer.toString(currentDocNo) + "/";
+
+        for(String url : imgsUrl) {
+
+            
+            String[] x = url.split("/");
+            try {
+                
+                File destFile = new File(dest + x[x.length - 1]);
+                File sourceFile = new File(url.substring(6));
+                sourceFile.createNewFile();
+                System.out.println(url.substring(6));
+                System.out.println(destFile.toPath());
+                System.out.println(sourceFile.toPath());
+                Files.copy(sourceFile.toPath(), destFile.toPath(), StandardCopyOption.REPLACE_EXISTING);
+            } catch (IOException e) {
+                System.out.println(e);
+            }
+        }
+        System.out.println("Completed");
+    }
+
+    public static void createNewListing(String title, String dateStarted, String dateUpdated, JSONArray tags, String link, JSONArray img, String shortDesc, String longDesc, ArrayList<String> imgsUrl) {
 
         try {
             // Get a new Document No
@@ -100,40 +148,45 @@ public abstract class DatabaseHandler {
             currentInfoJSON.clear();
             currentDocNo = newDocNo;
 
+            HashMap<String, Object> newInfoHashMap = new HashMap<String, Object>();
+
             // Create JSONObejct for info.json
-            currentInfoJSON.put("docNo", newDocNo);
-            currentInfoJSON.put("title", title);
-            currentInfoJSON.put("date_started", dateStarted);
-            currentInfoJSON.put("date_updated", dateUpdated);
-            currentInfoJSON.put("tags", tags);
-            currentInfoJSON.put("link", link);
-            currentInfoJSON.put("images", img);
-            currentInfoJSON.put("short_desc", shortDesc);
-            currentInfoJSON.put("long_desc", longDesc);
+            newInfoHashMap.put("docNo", newDocNo);
+            newInfoHashMap.put("title", title);
+            newInfoHashMap.put("date_started", dateStarted);
+            newInfoHashMap.put("date_updated", dateUpdated);
+            newInfoHashMap.put("tags", tags);
+            newInfoHashMap.put("link", link);
+            newInfoHashMap.put("images", img);
+            newInfoHashMap.put("short_desc", shortDesc);
+            newInfoHashMap.put("long_desc", longDesc);
+
+            currentInfoJSON = new JSONObject(newInfoHashMap);
+
+            HashMap<String,Object> newContentHashMap = new HashMap<String, Object>();
 
             // Create JSONObject for content.json
-            newListingToAddToContent.put("docNo", newDocNo);
-            newListingToAddToContent.put("title", title);
-            newListingToAddToContent.put("date_started", dateStarted);
-            newListingToAddToContent.put("date_updated", dateUpdated);
-            newListingToAddToContent.put("tags", tags);
-            newListingToAddToContent.put("short_desc", shortDesc);
+            newContentHashMap.put("docNo", newDocNo);
+            newContentHashMap.put("title", title);
+            newContentHashMap.put("date_started", dateStarted);
+            newContentHashMap.put("date_updated", dateUpdated);
+            newContentHashMap.put("tags", tags);
+            newContentHashMap.put("short_desc", shortDesc);
 
             // Add new JSONObject to existing content JSONObject
             JSONArray temp = (JSONArray) contentJSON.get("storage");
-            temp.add(newListingToAddToContent);
+            temp.add(newContentHashMap);
 
             System.out.println(contentJSON.toString());
             saveDataContentJSONToFile();
             saveDataCurrentInfoJSONToFile();
-
+            saveImgsToDirectory(imgsUrl);
 
         } catch(Exception e) {
 
         }
 
 
-        
         System.out.println(currentInfoJSON.toString());
     }
 }

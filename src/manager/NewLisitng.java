@@ -1,15 +1,25 @@
 package manager;
 
+import java.io.File;
+import java.util.ArrayList;
+
 import org.json.simple.JSONArray;
+
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.geometry.Insets;
+import javafx.scene.Node;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
+import javafx.scene.control.ScrollPane;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import javafx.scene.layout.ColumnConstraints;
 import javafx.scene.layout.GridPane;
+import javafx.scene.layout.HBox;
+import javafx.stage.FileChooser;
 
 public class NewLisitng {
 
@@ -56,8 +66,43 @@ public class NewLisitng {
 
         Label lbl_images = new Label("Images:");
         infoPanel.add(lbl_images,0,9);
-        TextField tf_images = new TextField();
-        infoPanel.add(tf_images, 1, 9);
+
+        ScrollPane scrollPane = new ScrollPane();
+        scrollPane.setMaxWidth(430);
+        scrollPane.setMaxHeight(265);
+        scrollPane.setMinHeight(265);
+        infoPanel.add(scrollPane,1,9 );
+
+        HBox hb_images = new HBox();
+        hb_images.setMaxWidth(450);
+        hb_images.setSpacing(5);
+        scrollPane.setContent(hb_images);
+
+        
+        //Add Images Button
+        Button addImageBtn = new Button("Add +");
+        infoPanel.add(addImageBtn, 1, 10);
+        addImageBtn.setOnAction(new EventHandler<ActionEvent>() {
+            @Override public void handle(ActionEvent e) {
+                FileChooser fileChooser = new FileChooser();
+
+                FileChooser.ExtensionFilter extFilterJPG = new FileChooser.ExtensionFilter("JPG files (*.jpg)", "*.JPG");
+                FileChooser.ExtensionFilter extFilterPNG = new FileChooser.ExtensionFilter("PNG files (*.png)", "*.PNG");
+                fileChooser.getExtensionFilters().addAll(extFilterJPG, extFilterPNG);
+
+                File file = fileChooser.showOpenDialog(null);
+
+                if(file != null) {
+                    Image image = new Image(file.toURI().toString());
+                    ImageView iview = new ImageView(image);
+                    iview.setFitHeight(250);
+                    iview.setFitWidth(250);
+                    hb_images.getChildren().add(0, iview);
+                }
+            }
+        });
+        
+        //infoPanel.add(tf_images, 2, 9);
 
         Label lbl_link = new Label("Link:");
         infoPanel.add(lbl_link,0,11);
@@ -93,12 +138,20 @@ public class NewLisitng {
                 }
 
                 JSONArray imgsjsonarr = new JSONArray();
-                String[] temp2 = tf_tags.getText().split(",");
-                for(int x  = 0; x < temp.length; x++) {
-                    imgsjsonarr.add(temp2[x]);
+                ArrayList<String> imgsUrlArr = new ArrayList<String>();
+                for(Node child: hb_images.getChildren()) {
+                    //Get image view
+                    ImageView imgView = (ImageView) child;
+                    // Split the url split into its different components
+                    String url = imgView.getImage().getUrl();
+                    String[] urlSplit = url.split("/");
+                    String title = urlSplit[urlSplit.length - 1];
+                    imgsjsonarr.add(title);
+                    imgsUrlArr.add(url);
                 }
 
-                DatabaseHandler.createNewListing(tf_title.getText(), tf_date_started.getText(),tf_date_updated.getText(), tagsjsonarr, tf_link.getText(), imgsjsonarr, ta_short_desc.getText(), ta_long_desc.getText());
+
+                DatabaseHandler.createNewListing(tf_title.getText(), tf_date_started.getText(),tf_date_updated.getText(), tagsjsonarr, tf_link.getText(), imgsjsonarr, ta_short_desc.getText(), ta_long_desc.getText(), imgsUrlArr);
             }
         });
     }

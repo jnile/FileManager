@@ -7,10 +7,11 @@ import javafx.stage.Stage;
 public class Main extends Application{
 
     private final static int width = 600;
-    private final static int height = 500;
+    private final static int height = 800;
 
     private MainMenuPanel mainMenuPanel;
     private NewLisitng newListingPanel;
+    private Modify modifyPanel;
     private Stage stage;
 
 
@@ -26,6 +27,7 @@ public class Main extends Application{
         // Instantiate Important Panels
         mainMenuPanel = new MainMenuPanel(this);
         newListingPanel = new NewLisitng(this);
+        modifyPanel = new Modify(this);
 
         Scene scene = new Scene(mainMenuPanel.getPanel(),width,height);
 
@@ -36,8 +38,13 @@ public class Main extends Application{
         stage.show();
     }
 
-    public void changeToInfoPanel() {
+    public void changeToNewListingPanel() {
         Scene scene = new Scene(newListingPanel.getPanel(),width,height);
+        stage.setScene(scene);
+    }
+
+    public void changeToModifyPanel() {
+        Scene scene = new Scene(modifyPanel.getPanel(),width,height);
         stage.setScene(scene);
     }
 

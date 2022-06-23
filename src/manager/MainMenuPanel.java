@@ -56,12 +56,12 @@ public class MainMenuPanel {
 
     // OnClick function for createBtn
     private void createBtnOnClick() {
-        mainProfile.changeToInfoPanel();
+        mainProfile.changeToNewListingPanel();
     }
 
     // OnClick function for modifyBtn
     private void modifyBtnOnClick() {
-        
+        mainProfile.changeToModifyPanel();
     }
 
     //Public Functions
