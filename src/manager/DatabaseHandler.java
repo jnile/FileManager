@@ -99,7 +99,7 @@ public abstract class DatabaseHandler {
                 toTestDir.mkdirs();
             }
 
-            PrintWriter out = new PrintWriter(new FileWriter(directory + "/info,json"));
+            PrintWriter out = new PrintWriter(new FileWriter(directory + "/info.json"));
             out.write(currentInfoJSON.toString());
             out.close();
         } catch(Exception e) {
