@@ -11,7 +11,7 @@ public class Main extends Application{
 
     private MainMenuPanel mainMenuPanel;
     private NewLisitng newListingPanel;
-    private Modify modifyPanel;
+    private ModifyManager modifyManagerPanel;
     private Stage stage;
 
 
@@ -27,7 +27,7 @@ public class Main extends Application{
         // Instantiate Important Panels
         mainMenuPanel = new MainMenuPanel(this);
         newListingPanel = new NewLisitng(this);
-        modifyPanel = new Modify(this);
+        modifyManagerPanel = new ModifyManager(this);
 
         Scene scene = new Scene(mainMenuPanel.getPanel(),width,height);
 
@@ -43,8 +43,8 @@ public class Main extends Application{
         stage.setScene(scene);
     }
 
-    public void changeToModifyPanel() {
-        Scene scene = new Scene(modifyPanel.getPanel(),width,height);
+    public void changeToModifyManagerPanel() {
+        Scene scene = new Scene(modifyManagerPanel.getPanel(),width,height);
         stage.setScene(scene);
     }
 

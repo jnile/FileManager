@@ -15,7 +15,7 @@ Meanwhile, the compiled output files will be generated in the `bin` folder by de
 
  - `Main.java`: Controls the entire program and is the central controller.
  - `MainMenuPanel.java`: Panel which handles all of the MainMenu panel functionalities (directing to different panels)
- - `NewListing.java`: Panel which handles all of the New Listing panel functionalities (creates new listing).
+ - `NewListing.java`: Panel which handles all of the New Listing panel functionalities (creates new listings).
  - `DatabaseHandler.java`: Reads, Writes and appends data with the files in the KOFKArchive directory
 
 ## Dependency Management

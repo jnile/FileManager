@@ -61,7 +61,7 @@ public class MainMenuPanel {
 
     // OnClick function for modifyBtn
     private void modifyBtnOnClick() {
-        mainProfile.changeToModifyPanel();
+        mainProfile.changeToModifyManagerPanel();
     }
 
     //Public Functions
