@@ -166,7 +166,6 @@ public class Modify {
                 }
 
                 DatabaseHandler.updateListing(tf_title.getText(), tf_date_started.getText(),tf_date_updated.getText(), tagsjsonarr, tf_link.getText(), imgsjsonarr, ta_short_desc.getText(), ta_long_desc.getText(), imgsUrlArr);
-                System.out.println("Update");
             }   
         });
 
