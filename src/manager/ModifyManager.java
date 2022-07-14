@@ -1,24 +1,32 @@
 package manager;
 
+import java.lang.module.ModuleFinder;
+
 import javafx.scene.layout.GridPane;
 
 public class ModifyManager {
     private Main mainProfile;
-    private GridPane modifyPanel;
+    private GridPane modifyManager;
     private Selection selectionPanel;
+    private Modify modifyPanel;
 
     public ModifyManager(Main impMainProfile) {
         mainProfile = impMainProfile;
 
-        modifyPanel = new GridPane();
+        modifyManager = new GridPane();
         
         // Handles selection of the choice of listing to modify
         selectionPanel = new Selection(this);
-        modifyPanel.add(selectionPanel.getPanel(), 0, 0);
-
+        modifyManager.add(selectionPanel.getPanel(), 0, 0);
     }
 
     public GridPane getPanel() {
-        return modifyPanel;
+        return modifyManager;
+    }
+
+    public void setToModifyPanel(int docNo) {
+        modifyManager.getChildren().clear();
+        modifyPanel = new Modify(this, docNo);
+        modifyManager.add(modifyPanel.getPanel(), 0, 0);
     }
 }

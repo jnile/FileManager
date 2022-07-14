@@ -13,6 +13,7 @@ import javafx.scene.layout.GridPane;
 public class Selection {
     private GridPane selectionPanel;
     private ModifyManager modifyManager;
+    private int selectedDocNo;
 
     //Contructor
     public Selection(ModifyManager inpmodifyManager) {
@@ -36,8 +37,9 @@ public class Selection {
         nextBtn.setOnAction(new EventHandler<ActionEvent>() {
             @Override public void handle(ActionEvent e) {
                 ObservableList<String> selectedListing = lv_options.getSelectionModel().getSelectedItems();
-                String docNo = selectedListing.get(0).toString().split("|")[0];
-
+                String docNo_str = selectedListing.get(0).toString().split("|")[0];
+                selectedDocNo = Integer.parseInt(docNo_str);
+                modifyManager.setToModifyPanel(selectedDocNo);
             }
         });
 

@@ -185,4 +185,57 @@ public abstract class DatabaseHandler {
 
         System.out.println(currentInfoJSON.toString());
     }
+
+    public static void updateListing(String title, String dateStarted, String dateUpdated, JSONArray tags, String link, JSONArray img, String shortDesc, String longDesc, ArrayList<String> imgsUrl) {
+        try {
+            // Get a new Document No
+            currentInfoJSON.clear();
+
+            HashMap<String, Object> newInfoHashMap = new HashMap<String, Object>();
+
+            // Create JSONObejct for info.json
+            newInfoHashMap.put("docNo", currentDocNo);
+            newInfoHashMap.put("title", title);
+            newInfoHashMap.put("date_started", dateStarted);
+            newInfoHashMap.put("date_updated", dateUpdated);
+            newInfoHashMap.put("tags", tags);
+            newInfoHashMap.put("link", link);
+            newInfoHashMap.put("images", img);
+            newInfoHashMap.put("short_desc", shortDesc);
+            newInfoHashMap.put("long_desc", longDesc);
+
+            currentInfoJSON = new JSONObject(newInfoHashMap);
+
+            // Add new JSONObject to existing content JSONObject
+            JSONArray temp = (JSONArray) contentJSON.get("storage");
+            JSONObject cont = (JSONObject) temp.get(currentDocNo);
+
+            cont.replace("date_updated", dateUpdated);
+            cont.replace("short_desc", shortDesc);
+            cont.replace("title", title);
+            cont.replace("tags", tags);
+            cont.replace("date_started", dateStarted);
+
+            System.out.println(contentJSON.toString());
+            System.out.println(currentInfoJSON.toString());
+            saveDataContentJSONToFile();
+            saveDataCurrentInfoJSONToFile();
+            saveImgsToDirectory(imgsUrl);
+
+        } catch(Exception e) {
+
+        }
+
+
+        System.out.println(currentInfoJSON.toString());
+    }
+
+    // Returns the URL of the current images folder for the current docNo
+    public static String getImageStorageURL() {
+        String temp = "";
+
+        temp += LOCATION_DOCUMENTS + "/" + Integer.toString(currentDocNo) + "/";
+
+        return temp;
+    }
 }
