@@ -38,7 +38,6 @@ public class Modify {
         setToDocNoData(docNo);
 
         modifyPanel = new GridPane();
-        
 
         ColumnConstraints col1 = new ColumnConstraints();
         col1.setMinWidth(100);
@@ -137,6 +136,7 @@ public class Modify {
         TextArea ta_long_desc = new TextArea();
         ta_long_desc.setMinHeight(100);
         ta_long_desc.setMaxHeight(100);
+        ta_long_desc.setWrapText(true);
         ta_long_desc.setText((String) infoDoc.get("long_desc"));
         modifyPanel.add(ta_long_desc, 1, 15);
 

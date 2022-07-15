@@ -29,7 +29,7 @@ public class Main extends Application{
         newListingPanel = new NewLisitng(this);
         modifyManagerPanel = new ModifyManager(this);
 
-        Scene scene = new Scene(mainMenuPanel.getPanel(),width,height);
+        Scene scene = new Scene(mainMenuPanel.getPanel(),400,400);
 
         
 
@@ -44,10 +44,15 @@ public class Main extends Application{
     }
 
     public void changeToModifyManagerPanel() {
-        Scene scene = new Scene(modifyManagerPanel.getPanel(),width,height);
+        Scene scene = new Scene(modifyManagerPanel.getPanel());
+
         stage.setScene(scene);
     }
 
+    public void setStageToDefaultSize() {
+        stage.setHeight(height);
+        stage.setWidth(width);
+    }
     // Getter Functions
 
     // Return height constant

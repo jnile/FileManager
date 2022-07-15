@@ -28,5 +28,6 @@ public class ModifyManager {
         modifyManager.getChildren().clear();
         modifyPanel = new Modify(this, docNo);
         modifyManager.add(modifyPanel.getPanel(), 0, 0);
+        mainProfile.setStageToDefaultSize();
     }
 }

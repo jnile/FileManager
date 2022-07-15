@@ -20,6 +20,8 @@ public class Selection {
         modifyManager = inpmodifyManager;
 
         selectionPanel = new GridPane();
+        selectionPanel.setMinWidth(300);
+        selectionPanel.setMinHeight(500);
 
         JSONArray options = DatabaseHandler.getContentJSONStorage();
         

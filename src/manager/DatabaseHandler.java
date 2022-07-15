@@ -65,12 +65,8 @@ public abstract class DatabaseHandler {
 
     // Getter Functions
     public static JSONObject getInfoOfDocNo(int inpDocNo) {
-        if(inpDocNo == currentDocNo) {
-            return currentInfoJSON;
-        } else {
-            setInfoOfDocNo(inpDocNo);
-            return currentInfoJSON;
-        }
+        setInfoOfDocNo(inpDocNo);
+        return currentInfoJSON;
     }
 
     public static JSONArray getContentJSONStorage() {
